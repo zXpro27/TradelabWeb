@@ -1,0 +1,6 @@
+{
+  "name": "TradelabMod",
+  "description": "Tactical HUD Game Mod APK platform for secure Android game mods, direct safe downloads, and gaming community.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

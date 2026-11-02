@@ -1,0 +1,230 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #060910;
+    color: #e2e8f0;
+    overflow-x: hidden;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+}
+
+/* Tactical HUD Chamfered Borders & Angles */
+.hud-corner-tl-br {
+  clip-path: polygon(14px 0%, 100% 0%, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0% 100%, 0% 14px);
+}
+
+.hud-corner-all {
+  clip-path: polygon(8px 0%, calc(100% - 8px) 0%, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0% calc(100% - 8px), 0% 8px);
+}
+
+.hud-nav-cut {
+  clip-path: polygon(0 0, 100% 0, calc(100% - 18px) 100%, 18px 100%);
+}
+
+.hud-tab-cut {
+  clip-path: polygon(10px 0, calc(100% - 10px) 0, 100% 100%, 0 100%);
+}
+
+/* Tactical HUD Glows */
+.hud-glow-cyan {
+  box-shadow: 0 0 16px rgba(6, 182, 212, 0.25), inset 0 0 12px rgba(6, 182, 212, 0.08);
+}
+
+.hud-glow-purple {
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.25), inset 0 0 12px rgba(168, 85, 247, 0.08);
+}
+
+.hud-glow-card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 1px rgba(6, 182, 212, 0.4);
+}
+
+.hud-glow-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8), 0 0 18px rgba(6, 182, 212, 0.45);
+}
+
+/* Ambient Cyber Grid Background inspired by Zireku Hero Desktop */
+.cyber-grid-bg {
+  background-color: #050811;
+  background-image: 
+    linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+  background-size: 38px 38px;
+}
+
+.radial-vignette {
+  background: radial-gradient(circle at 50% 20%, rgba(6, 182, 212, 0.08) 0%, rgba(13, 17, 30, 0.6) 45%, rgba(4, 7, 13, 0.98) 100%);
+}
+
+/* Subtle Tactical Scanline */
+.hud-scanlines {
+  background: linear-gradient(
+    rgba(18, 26, 44, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.02),
+    rgba(0, 255, 0, 0.01),
+    rgba(0, 0, 255, 0.02)
+  );
+  background-size: 100% 3px, 6px 100%;
+}
+
+/* Font families */
+.font-orbitron {
+  font-family: 'Orbitron', system-ui, sans-serif;
+}
+.font-rajdhani {
+  font-family: 'Rajdhani', system-ui, sans-serif;
+}
+
+/* Preview HUD Navbar Container Styling */
+.nav-outer-hud {
+  position: relative;
+  transition: filter 0.35s ease;
+}
+
+.nav-outer-hud.scrolled {
+  filter: drop-shadow(0 10px 24px rgba(0, 229, 255, 0.24)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.8));
+}
+
+.nav-wrap-hud {
+  --hp: polygon(16px 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%, 0 16px);
+  position: relative;
+  isolation: isolate;
+  padding: 8px 14px 9px;
+  clip-path: var(--hp);
+  -webkit-clip-path: var(--hp);
+}
+
+@media (min-width: 640px) {
+  .nav-wrap-hud {
+    padding: 9px 18px 10px;
+  }
+}
+
+.nav-wrap-hud::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(90deg, #00e5ff, rgba(0, 229, 255, 0.45) 55%, rgba(168, 85, 247, 0.35));
+  clip-path: var(--hp);
+  -webkit-clip-path: var(--hp);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.nav-wrap-hud::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background: rgba(5, 11, 20, 0.92);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  clip-path: var(--hp);
+  -webkit-clip-path: var(--hp);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.nav-wrap-hud.scrolled::before,
+.nav-wrap-hud.scrolled::after {
+  opacity: 1;
+}
+
+/* Bordered chamfered shape: outer layer = border, ::before = fill */
+.hud-edge-shape {
+  --cut: 10px;
+  --poly: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, var(--cut) 100%, 0 calc(100% - var(--cut)));
+  position: relative;
+  isolation: isolate;
+  background: rgba(0, 229, 255, 0.45);
+  clip-path: var(--poly);
+  -webkit-clip-path: var(--poly);
+}
+
+.hud-edge-shape::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background: rgba(6, 18, 32, 0.94);
+  clip-path: var(--poly);
+  -webkit-clip-path: var(--poly);
+}
+
+/* Topbar Telemetry shape with balanced insets */
+.topbar-hud-shape {
+  --poly: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  position: relative;
+  isolation: isolate;
+  background: rgba(0, 229, 255, 0.35);
+  clip-path: var(--poly);
+  -webkit-clip-path: var(--poly);
+}
+
+.topbar-hud-shape::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background: rgba(6, 18, 32, 0.95);
+  clip-path: var(--poly);
+  -webkit-clip-path: var(--poly);
+}
+
+/* Nav Links shape */
+.nav-links-hud-shape {
+  --poly: polygon(24px 0, calc(100% - 24px) 0, 100% 100%, 0 100%);
+  position: relative;
+  isolation: isolate;
+  background: rgba(0, 229, 255, 0.35);
+  clip-path: var(--poly);
+}
+
+.nav-links-hud-shape::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background: rgba(6, 18, 32, 0.92);
+  clip-path: var(--poly);
+}
+
+/* Search Box shape alongside Nav menu */
+.searchbox-hud-shape {
+  --poly: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  position: relative;
+  isolation: isolate;
+  background: rgba(0, 229, 255, 0.4);
+  clip-path: var(--poly);
+}
+
+.searchbox-hud-shape::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background: rgba(4, 14, 26, 0.9);
+  clip-path: var(--poly);
+}
+
+/* Active Nav Link highlight */
+.nav-item-active {
+  --poly: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  position: relative;
+  isolation: isolate;
+  background: #00e5ff;
+  clip-path: var(--poly);
+}
+
+.nav-item-active::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  background: #0a2e3b;
+  clip-path: var(--poly);
+}
